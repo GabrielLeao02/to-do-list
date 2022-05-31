@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:list_de_tarefas/models/todo.dart';
+
 
 class TodoListItem extends StatelessWidget {
-  const TodoListItem({Key? key, required this.title}) : super(key: key);
-  final String title;
+  const TodoListItem({Key? key, required this.todo}) : super(key: key);
+  final Todo todo;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -15,14 +18,14 @@ class TodoListItem extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            '31/05/2022',
-            style: TextStyle(
+          Text(
+            DateFormat('dd/MM/yy - HH:mm').format(todo.dateTime),
+            style: const TextStyle(
               fontSize: 12,
             ),
           ),
           Text(
-            title,
+            todo.title,
             style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
