@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:list_de_tarefas/widgets/todo_list_item.dart';
 
 class ToDoListPage extends StatefulWidget {
   const ToDoListPage({Key? key}) : super(key: key);
@@ -59,13 +60,7 @@ class _ToDoListPageState extends State<ToDoListPage> {
               Flexible(
                 child: ListView(
                   shrinkWrap: true,
-                  children: [
-                    for (var todo in todos)
-                      ListTile(
-                        title: Text('Tarefa: $todo'),
-                        onTap: () {},
-                      )
-                  ],
+                  children: [for (var todo in todos) TodoListItem(title: todo)],
                 ),
               ),
               const SizedBox(
@@ -73,8 +68,9 @@ class _ToDoListPageState extends State<ToDoListPage> {
               ),
               Row(
                 children: [
-                  const Expanded(
-                    child: Text('Você possui 0 tarefas pendentes'),
+                   Expanded(
+                    child:
+                        Text('Você possui ${todos.length} tarefas pendentes'),
                   ),
                   const SizedBox(
                     width: 8,
