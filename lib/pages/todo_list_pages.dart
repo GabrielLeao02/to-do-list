@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:list_de_tarefas/models/todo.dart';
+import 'package:list_de_tarefas/repositories/todo_repository.dart';
 import 'package:list_de_tarefas/widgets/todo_list_item.dart';
 
 class ToDoListPage extends StatefulWidget {
@@ -11,6 +12,7 @@ class ToDoListPage extends StatefulWidget {
 
 class _ToDoListPageState extends State<ToDoListPage> {
   final TextEditingController todoController = TextEditingController();
+  final TodoRepository todoRepository = TodoRepository();
 
   List<Todo> todos = [];
   Todo? deletedTodo;
@@ -48,6 +50,7 @@ class _ToDoListPageState extends State<ToDoListPage> {
                           todos.add(newTodo);
                         });
                         todoController.clear();
+                        todoRepository.saveTodoList(todos);
                       },
                       style: ElevatedButton.styleFrom(
                         primary: const Color(0xff00d7f3),
@@ -137,15 +140,15 @@ class _ToDoListPageState extends State<ToDoListPage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Limpar tudo?'),
-        content: Text('Você tem certeza que deseja apagar todas as tarefas'),
+        title: const Text('Limpar tudo?'),
+        content: const Text('Você tem certeza que deseja apagar todas as tarefas'),
         actions: [
           TextButton(
             onPressed: () {
               Navigator.of(context).pop();
             },
-            style: TextButton.styleFrom(primary: Color(0xff00d7f3)),
-            child: Text('Cancelar'),
+            style: TextButton.styleFrom(primary: const Color(0xff00d7f3)),
+            child: const Text('Cancelar'),
           ),
           TextButton(
             onPressed: () {
@@ -153,7 +156,7 @@ class _ToDoListPageState extends State<ToDoListPage> {
               deleteAllTodos();
             },
             style: TextButton.styleFrom(primary: Colors.red),
-            child: Text('Limpar Tudo'),
+            child: const Text('Limpar Tudo'),
           )
         ],
       ),
